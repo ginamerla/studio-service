@@ -36,7 +36,8 @@ private static Logger LOGGER = LogManager.getLogger(WebAppApplicationInitializer
 	 */
 	private AnnotationConfigWebApplicationContext getContext() {
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-		context.setConfigLocation("training.spring.boot.config");
+		//Aqui se declara el paquete que contiene la configuracion de spring
+		context.setConfigLocation("com.marke.app.coreservice.config");
 		return context;
 	}
 }
