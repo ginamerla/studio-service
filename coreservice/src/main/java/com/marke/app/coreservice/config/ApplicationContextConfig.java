@@ -17,6 +17,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import com.marke.app.coreservice.dao.InstructorDao;
+import com.marke.app.coreservice.dao.impl.InstructorDaoImpl;
+import com.marke.app.coreservice.service.InstructorService;
+import com.marke.app.coreservice.service.impl.InstructorServiceImpl;
 import com.mysql.cj.jdbc.MysqlDataSource;
 
 /**
@@ -70,5 +74,19 @@ private static final Logger LOG = LogManager.getLogger(ApplicationContextConfig.
         dataSource.setPassword(jdbcPassword);
         LOG.info("Mysql Database URL:" + jdbcUrl);
         return dataSource;
+    }
+    
+    /**
+     * Servicios y Daos
+     */
+    
+    @Bean
+	public InstructorDaoImpl instructorDao() {
+		return new InstructorDaoImpl();
+    }
+    
+    @Bean
+	public InstructorServiceImpl instructorService() {
+		return new InstructorServiceImpl();
     }
 }

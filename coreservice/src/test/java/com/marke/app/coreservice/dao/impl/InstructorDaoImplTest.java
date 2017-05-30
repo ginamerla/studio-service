@@ -23,7 +23,7 @@ public class InstructorDaoImplTest {
 		Instructor instructor = new Instructor();
 		instructor.setColor("Blanco");
 		instructor.setName("Papol");
-		Mockito.when(jdbcTemplate.update(Mockito.eq(InstructorDao.INSERT), Mockito.anyObject())).thenReturn(1);
+		Mockito.when(jdbcTemplate.update(InstructorDao.INSERT, new Object[]{instructor.getName(), instructor.getColor()})).thenReturn(1);
 		dao.crearEntidad(instructor);
 	}
 }
