@@ -1,5 +1,6 @@
 package com.marke.app.coreservice.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -9,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import com.marke.app.coreservice.dao.InstructorDao;
+import com.marke.app.coreservice.dao.mapper.InstructorRowMapper;
 import com.marke.app.coreservice.exception.CoreServiceGeneralException;
 import com.marke.app.coreservice.model.Instructor;
 
@@ -26,19 +28,27 @@ public class InstructorDaoImpl implements InstructorDao {
 	}
 
 	public void actualizarEntidad(Instructor modelo) throws CoreServiceGeneralException {
-		throw new UnsupportedOperationException("No implementado!");
+		LOG.info("Actualizando instructor");
+		jdbcTemplate.update(UPDATE, new Object[]{modelo.getName(), modelo.getColor(), modelo.getIdInstructor()});
 	}
 
-	public void eliminarEntidad(Long identificador) throws CoreServiceGeneralException {
-		throw new UnsupportedOperationException("No implementado!");
+	public void eliminarEntidad(Long id) throws CoreServiceGeneralException {
+		LOG.info("Eliminando instructor");
+		jdbcTemplate.update(DELETE, new Object[]{id});
 	}
 
 	public Instructor consultarEntidad(Instructor modelo) throws CoreServiceGeneralException {
-		throw new UnsupportedOperationException("No implementado!");
+		LOG.info("Consultando instructor");
+		Instructor instructor = new Instructor();
+		instructor = jdbcTemplate.queryForObject(SELECT_BY_ID, new Object[]{modelo.getIdInstructor()}, new InstructorRowMapper());
+		return instructor;
 	}
 
 	public List<Instructor> consultarEntidades() throws CoreServiceGeneralException {
-		throw new UnsupportedOperationException("No implementado!");
+		LOG.info("Consultando todos los Instructores");
+		List<Instructor>instructorList = new ArrayList<Instructor>();
+		instructorList = jdbcTemplate.query(SELECT_ALL, new InstructorRowMapper());
+		return instructorList;
 	}
 
 }

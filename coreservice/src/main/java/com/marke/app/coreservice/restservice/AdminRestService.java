@@ -12,7 +12,7 @@ import com.marke.app.coreservice.resource.HealthCheck;
 
 @Service
 @Path("/admin")
-public class RestAdminService {
+public class AdminRestService {
 
 	@GET
 	@Path("/health-report")

@@ -17,10 +17,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import com.marke.app.coreservice.dao.InstructorDao;
+import com.marke.app.coreservice.dao.impl.EquipmentDaoImpl;
 import com.marke.app.coreservice.dao.impl.InstructorDaoImpl;
-import com.marke.app.coreservice.service.InstructorService;
+import com.marke.app.coreservice.dao.impl.RoleDaoImpl;
+import com.marke.app.coreservice.service.impl.EquipmentServiceImpl;
 import com.marke.app.coreservice.service.impl.InstructorServiceImpl;
+import com.marke.app.coreservice.service.impl.RoleServiceImpl;
 import com.mysql.cj.jdbc.MysqlDataSource;
 
 /**
@@ -79,7 +81,7 @@ private static final Logger LOG = LogManager.getLogger(ApplicationContextConfig.
     /**
      * Servicios y Daos
      */
-    
+    //instructor
     @Bean
 	public InstructorDaoImpl instructorDao() {
 		return new InstructorDaoImpl();
@@ -88,5 +90,27 @@ private static final Logger LOG = LogManager.getLogger(ApplicationContextConfig.
     @Bean
 	public InstructorServiceImpl instructorService() {
 		return new InstructorServiceImpl();
+    }
+    
+    //Equipment
+    @Bean
+    public EquipmentDaoImpl equipmentDao(){
+    	return new EquipmentDaoImpl();
+    }
+    
+    @Bean
+    public EquipmentServiceImpl equimentService(){
+    	return new EquipmentServiceImpl();
+    }
+    
+    //Role
+    @Bean
+    public RoleDaoImpl roleDao(){
+    	return new RoleDaoImpl();
+    }
+    
+    @Bean
+    public RoleServiceImpl roleService(){
+    	return new RoleServiceImpl();
     }
 }

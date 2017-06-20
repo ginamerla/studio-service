@@ -18,8 +18,10 @@ import org.springframework.core.annotation.Order;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.marke.app.coreservice.exception.ApiExceptionMapper;
-import com.marke.app.coreservice.restservice.RestAdminService;
-import com.marke.app.coreservice.restservice.RestInstructorService;
+import com.marke.app.coreservice.restservice.AdminRestService;
+import com.marke.app.coreservice.restservice.EquipmentRestService;
+import com.marke.app.coreservice.restservice.InstructorRestService;
+import com.marke.app.coreservice.restservice.RoleRestService;
 import com.marke.app.coreservice.utils.CustomJacksonMapperFactory;
 
 /**
@@ -45,9 +47,14 @@ public class JaxRsServerConfig {
 
 		JAXRSServerFactoryBean factory = RuntimeDelegate.getInstance()
 				.createEndpoint(restCoreServiceApplication(), JAXRSServerFactoryBean.class);
+		//Agregar los beans de REST Services
 		factory.setServiceBeans(Arrays.<Object> asList(
 				restAdminService(),
-				restInstructorService()));
+				instructorRestService(),
+				equipmentRestService(),
+				roleRestService()
+				));
+		
 		factory.setAddress(factory.getAddress());
 		factory.setProviders(Arrays.<Object> asList(jsonProvider(), exceptionMapperProvider()));
 		factory.setBus(bus);
@@ -63,9 +70,9 @@ public class JaxRsServerConfig {
 	
 
 	@Bean
-	public RestAdminService restAdminService(){
+	public AdminRestService restAdminService(){
 		LOGGER.info("RestAdmin... started!");
-		return new RestAdminService();
+		return new AdminRestService();
 	}
 	
 	/**
@@ -93,11 +100,23 @@ public class JaxRsServerConfig {
 	}
   
 	/**
-	 * Agregar aqui los demas servicios Rest
+	 * Agregar aqui los demas servicios Rest --- Agregar a la lista---
 	 */
 	@Bean
-	public RestInstructorService restInstructorService() {
+	public InstructorRestService instructorRestService() {
 		LOGGER.info("JasRsServerConfig : RestInstructorService bean created");
-		return new RestInstructorService();
+		return new InstructorRestService();
+	}
+	
+	@Bean
+	public EquipmentRestService equipmentRestService(){
+		LOGGER.info("EquipmentRestService bean creaated");
+		return new EquipmentRestService();
+	}
+	
+	@Bean
+	public RoleRestService roleRestService(){
+		LOGGER.info("RoleRestService bean created");
+		return new RoleRestService();
 	}
 }
